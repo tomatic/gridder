@@ -31,4 +31,4 @@ rows        The height of the window in rows. Maximum is gridrows minus row.
 ```
 ### Examples
 
-![img/gridder-example-3-2-0-0-1-1.png]
+![Top left on a 3x2 grid](img/gridder-example-3-2-0-0-1-1.png)
