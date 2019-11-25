@@ -33,3 +33,7 @@ rows        The height of the window in rows. Maximum is gridrows minus row.
 
 Top left on a 3x2 grid
 ![Top left on a 3x2 grid](img/gridder-example-3-2-0-0-1-1.png)
+
+Middle column full height on a 3x2 grid
+![Middle column full height on a 3x2 grid](img/gridder-example-3-2-1-0-1-2.png)
+
