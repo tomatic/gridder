@@ -13,6 +13,8 @@ Download the file `gridder` to your machine and place it in any directory that's
 
 ## Usage
 
+You'll need to use whatever facility your OS provides for assigning global keyboard shortcuts to call gridder with the required parameters. You can test it in a terminal window, but since it moves/resizes the active window only, you'll only be able to manipulate the terminal window that way.
+
 ### Syntax
 
 ```
