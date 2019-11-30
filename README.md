@@ -9,7 +9,8 @@ Download the file `gridder` to your machine and place it in any directory that's
 ## Dependencies
 
 - xdotool
-- xdpyinfo
+- xprop
+- sed
 
 ## Usage
 
