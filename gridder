@@ -28,37 +28,37 @@ if [ "$#" -ne 6 ]; then
     exit 1
 fi
 
-GRIDCOLS=$1
-GRIDROWS=$2
-COL=$3
-ROW=$4
-COLS=$5
-ROWS=$6
+gridcols=$1
+gridrows=$2
+col=$3
+row=$4
+cols=$5
+rows=$6
 
 # Get usable desktop size 
-SCREENWIDTH=$(xprop -root _NET_WORKAREA | sed -r 's/^[^0-9]*([0-9]+), ([0-9]+), ([0-9]+), ([0-9]+)/\3/')
-SCREENHEIGHT=$(xprop -root _NET_WORKAREA | sed -r 's/^[^0-9]*([0-9]+), ([0-9]+), ([0-9]+), ([0-9]+)/\4/')
+screenwidth=$(xprop -root _NET_WORKAREA | sed -r 's/^[^0-9]*([0-9]+), ([0-9]+), ([0-9]+), ([0-9]+)/\3/')
+screenheight=$(xprop -root _NET_WORKAREA | sed -r 's/^[^0-9]*([0-9]+), ([0-9]+), ([0-9]+), ([0-9]+)/\4/')
 
 # Get dimensions of window decorations (titlebar + border)
-BORDERS=$(xprop _NET_FRAME_EXTENTS -id $(xdotool getactivewindow))
-BORDERLEFT=$(echo $BORDERS | sed -r 's/^[^0-9]*([0-9]+), ([0-9]+), ([0-9]+), ([0-9]+)/\1/')
-BORDERRIGHT=$(echo $BORDERS | sed -r 's/^[^0-9]*([0-9]+), ([0-9]+), ([0-9]+), ([0-9]+)/\2/')
-BORDERTOP=$(echo $BORDERS | sed -r 's/^[^0-9]*([0-9]+), ([0-9]+), ([0-9]+), ([0-9]+)/\3/')
-BORDERBOTTOM=$(echo $BORDERS | sed -r 's/^[^0-9]*([0-9]+), ([0-9]+), ([0-9]+), ([0-9]+)/\4/')
-COLWIDTH=$(expr $((SCREENWIDTH / GRIDCOLS)))
-ROWHEIGHT=$(expr $((SCREENHEIGHT / GRIDROWS)))
-WINDOWWIDTH=$(expr $((COLWIDTH * COLS)))
-WINDOWHEIGHT=$(expr $((ROWHEIGHT * ROWS)))
-XPOS=$(expr $((COL * COLWIDTH)))
-YPOS=$(expr $((ROW * ROWHEIGHT)))
-xdotool getactivewindow windowsize $((WINDOWWIDTH - (BORDERLEFT + BORDERRIGHT))) $((WINDOWHEIGHT - (BORDERTOP + BORDERBOTTOM)))
+borders=$(xprop _NET_FRAME_EXTENTS -id $(xdotool getactivewindow))
+borderleft=$(echo $borders | sed -r 's/^[^0-9]*([0-9]+), ([0-9]+), ([0-9]+), ([0-9]+)/\1/')
+borderright=$(echo $borders | sed -r 's/^[^0-9]*([0-9]+), ([0-9]+), ([0-9]+), ([0-9]+)/\2/')
+bordertop=$(echo $borders | sed -r 's/^[^0-9]*([0-9]+), ([0-9]+), ([0-9]+), ([0-9]+)/\3/')
+borderbottom=$(echo $borders | sed -r 's/^[^0-9]*([0-9]+), ([0-9]+), ([0-9]+), ([0-9]+)/\4/')
+colwidth=$(expr $((screenwidth / gridcols)))
+rowheight=$(expr $((screenheight / gridrows)))
+windowwidth=$(expr $((colwidth * cols)))
+windowheight=$(expr $((rowheight * rows)))
+xpos=$(expr $((col * colwidth)))
+ypos=$(expr $((row * rowheight)))
+xdotool getactivewindow windowsize $((windowwidth - (borderleft + borderright))) $((windowheight - (bordertop + borderbottom)))
 
 # Fix for Konsole window positioning.
 # Konsole for some reason behaves differently from other windows,
 # the vertical position is exactly one BORDERTOP lower.
 # So with this hack the result is as expected, but the cause of this is unclear.
 if [[ $(xdotool getactivewindow getwindowname) =~ "Konsole" ]]; then
-  xdotool getactivewindow windowmove $XPOS $((YPOS + BORDERTOP))
+  xdotool getactivewindow windowmove $xpos $((ypos + bordertop))
 else
-  xdotool getactivewindow windowmove $XPOS $YPOS
+  xdotool getactivewindow windowmove $xpos $ypos
 fi
