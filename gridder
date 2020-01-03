@@ -57,7 +57,7 @@ xdotool getactivewindow windowsize $((windowwidth - (borderleft + borderright)))
 # Konsole for some reason behaves differently from other windows,
 # the vertical position is exactly one BORDERTOP lower.
 # So with this hack the result is as expected, but the cause of this is unclear.
-if [[ $(xdotool getactivewindow getwindowname) =~ "Konsole" ]]; then
+if [[ $(xdotool getactivewindow getwindowname) =~ Konsole|Dolphin ]]; then
   xdotool getactivewindow windowmove $xpos $((ypos + bordertop))
 else
   xdotool getactivewindow windowmove $xpos $ypos
